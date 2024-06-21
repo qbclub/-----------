@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фокус на поле ввода</title>
+</head>
+
+<body style="display: flex; justify-content: center; align-items: center; margin: 0; height: 100dvh; flex-direction: column;">
+    <h1 id="title">Начните сканирование!</h1>
+    <div>F11 - полный экран</div>
+    <div>F5 - обновление экрана</div>
+
+    <input type="text" id="inputField" onblur="focusInput()" style="width:0; opacity:0 ; border: none; outline:
+        none;" />
+    <img src="" alt="Нажмите F5 для обновления" id="img" style="height: 100dvh; display: none; ">
+
+    <script>
+        let inputField = document.getElementById("inputField");
+        let img = document.getElementById("img");
+        let result = ""
+
+        function focusInput() {
+            inputField.focus();
+        }
+
+        inputField.addEventListener('input', function(event) {
+
+            if (result.length < 13) {
+                result = result + event.data
+            }
+
+            if (result.length == 13) {
+
+                title.style.display = 'none';
+                img.style.display = 'block'
+                img.src = `./${result}.jpg`;
+                inputField.value = '';
+                result = ""
+
+            }
+        });
+
+        // Устанавливаем фокус на поле ввода при загрузке страницы
+        window.onload = function() {
+
+            focusInput();
+            img.addEventListener('error', function() {
+                title.style.display = 'block';
+                img.style.display = 'none';
+                inputField.value = '';
+                result = ""
+            });
+        };
+    </script>
+</body>
+
+</html>
