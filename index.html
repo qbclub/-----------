@@ -9,8 +9,11 @@
 
 <body style="display: flex; justify-content: center; align-items: center; margin: 0; height: 100dvh; flex-direction: column;">
     <h1 id="title">Начните сканирование!</h1>
-    <div>F11 - полный экран</div>
-    <div>F5 - обновление экрана</div>
+    <div id="help">
+        <div>F11 - полный экран</div>
+        <div>F5 - обновление экрана</div>
+    </div>
+
 
     <input type="text" id="inputField" onblur="focusInput()" style="width:0; opacity:0 ; border: none; outline:
         none;" />
@@ -19,6 +22,9 @@
     <script>
         let inputField = document.getElementById("inputField");
         let img = document.getElementById("img");
+        let help = document.getElementById("help")
+
+
         let result = ""
 
         function focusInput() {
@@ -34,6 +40,7 @@
             if (result.length == 13) {
 
                 title.style.display = 'none';
+                help.style.display = 'none';
                 img.style.display = 'block'
                 img.src = `./${result}.jpg`;
                 inputField.value = '';
@@ -48,6 +55,7 @@
             focusInput();
             img.addEventListener('error', function() {
                 title.style.display = 'block';
+                help.style.display = 'block';
                 img.style.display = 'none';
                 inputField.value = '';
                 result = ""
